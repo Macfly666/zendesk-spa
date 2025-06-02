@@ -2,13 +2,6 @@ body {
   font-family: Arial, sans-serif;
   background-color: #f4f6f8;
   padding: 30px;
-  justify-content: center;
-}
-
-h2 {
-  color: #255662;
-  text-align: center;
-  margin-bottom: 20px;
 }
 
 .container {
@@ -19,13 +12,18 @@ h2 {
   align-items: center;
 }
 
+h2 {
+  color: #255662;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 .tabs {
   display: flex;
   justify-content: center;
   gap: 15px;
   margin-bottom: 30px;
   flex-wrap: wrap;
-  align-items: center; /* <-- ALIGNEMENT VERTICAL */
 }
 
 .tabs button {
@@ -38,11 +36,6 @@ h2 {
   padding: 12px 20px;
   white-space: nowrap;
   flex: 0 0 auto;
-  width: auto;
-  height: auto;
-  min-height: 40px; /* <-- FORCE UNE HAUTEUR MINI */
-  max-height: 50px; /* <-- LIMITE LA HAUTEUR */
-  line-height: 1; /* <-- Évite que le texte s'étire */
   text-align: center;
 }
 
@@ -51,8 +44,7 @@ h2 {
 }
 
 #app-container {
-  width: 600px;
-  margin: 0 auto; /* <-- Centre horizontalement */
+  width: 100%;
 }
 
 form {
@@ -63,6 +55,7 @@ form {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  width: 100%;
 }
 
 form label {
