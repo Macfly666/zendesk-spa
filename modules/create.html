@@ -1,8 +1,37 @@
 <form id="createForm">
   <label>Nom *</label>
   <input type="text" id="name" required />
+  
   <label>Domaine</label>
   <input type="text" id="domain" />
+
+  <label>Email</label>
+  <input type="email" id="email" />
+
+  <label>Téléphone</label>
+  <input type="text" id="telephone" />
+
+  <label>Code Société</label>
+  <input type="text" id="code_societe" />
+
+  <label>Univers</label>
+  <select id="univers">
+    <option value="">-- Choisir --</option>
+    <option value="immobilier">Immobilier</option>
+    <option value="automobile">Automobile</option>
+    <option value="nautisme">Nautisme</option>
+    <option value="retail">Retail</option>
+  </select>
+
+  <label>Fiche technique</label>
+  <input type="url" id="fiche_technique" />
+
+  <label>Fiche Sugar</label>
+  <input type="url" id="fiche_sugar" />
+
+  <label>Adresse</label>
+  <textarea id="adresse" rows="3"></textarea>
+
   <button type="submit">Créer l’organisation</button>
 </form>
 <div id="status"></div>
@@ -12,16 +41,28 @@ document.getElementById('createForm').addEventListener('submit', async function(
   e.preventDefault();
   const status = document.getElementById('status');
   status.textContent = "Création en cours...";
+
   const body = {
     name: document.getElementById('name').value,
-    domain_names: document.getElementById('domain').value ? [document.getElementById('domain').value] : []
+    domain_names: document.getElementById('domain').value ? [document.getElementById('domain').value] : [],
+    organization_fields: {
+      email: document.getElementById('email').value,
+      telephone: document.getElementById('telephone').value,
+      code_societe: document.getElementById('code_societe').value,
+      univers: document.getElementById('univers').value,
+      fiche_technique: document.getElementById('fiche_technique').value,
+      fiche_sugar: document.getElementById('fiche_sugar').value,
+      adresse: document.getElementById('adresse').value
+    }
   };
+
   try {
     const response = await fetch('https://n8n.ubiflow.net/webhook/create-org', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(body)
     });
+
     if (response.ok) {
       status.textContent = "✅ Organisation créée avec succès !";
       e.target.reset();
