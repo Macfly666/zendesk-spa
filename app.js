@@ -10,8 +10,18 @@ async function loadModule(moduleName) {
     const content = await response.text();
     container.innerHTML = content;
   } catch (error) {
-    container.innerHTML = `<p style="color:red;">Erreur lors du chargement du module : ${error.message}</p>`;
+    container.innerHTML = `<p style="color:red;">Erreur : ${error.message}</p>`;
   }
+}
+
+// Fonction pour afficher un toast
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.className = "show";
+  setTimeout(() => {
+    toast.className = toast.className.replace("show", "");
+  }, 3000); // Disparait après 3s
 }
 
 window.onload = () => loadModule('create');
