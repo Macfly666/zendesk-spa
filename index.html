@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestion Zendesk - SPA</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h2>Gestion des organisations Zendesk</h2>
+
+  <nav class="tabs">
+    <button onclick="loadModule('create')">Créer</button>
+    <button onclick="loadModule('update')">Mettre à jour</button>
+    <button onclick="loadModule('mailing')">Liste mailing</button>
+  </nav>
+
+  <main id="app-container">
+    <!-- Contenu dynamique ici -->
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

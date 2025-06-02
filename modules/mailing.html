@@ -1,0 +1,41 @@
+<form id="mailingForm">
+  <label>Compte *</label>
+  <input type="text" id="compte" required />
+  <label>Contact *</label>
+  <input type="text" id="contact" required />
+  <label>Email *</label>
+  <input type="email" id="email_contact" required />
+  <button type="submit">Ajouter contact</button>
+</form>
+<div id="mailing-status"></div>
+
+<script>
+document.getElementById('mailingForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  if (!confirm("Confirmez-vous l'ajout de ce contact à la liste mailing ?")) {
+    return;
+  }
+  const status = document.getElementById('mailing-status');
+  status.textContent = "Ajout du contact en cours...";
+  const body = {
+    compte: document.getElementById('compte').value,
+    contact: document.getElementById('contact').value,
+    email: document.getElementById('email_contact').value
+  };
+  try {
+    const response = await fetch('https://n8n.ubiflow.net/webhook-test/ceb8177d-80b5-4db3-b8d5-877c9b97d112', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body)
+    });
+    if (response.ok) {
+      status.textContent = "✅ Contact ajouté avec succès !";
+      e.target.reset();
+    } else {
+      status.textContent = "❌ Erreur : " + await response.text();
+    }
+  } catch (err) {
+    status.textContent = "❌ Problème de connexion.";
+  }
+});
+</script>
