@@ -8,6 +8,13 @@
   <label>Email *</label>
   <input type="email" id="email_contact" required />
   
+  <label>Type *</label>
+  <select id="type_contact" required>
+    <option value="">-- Choisir --</option>
+    <option value="Client">Client</option>
+    <option value="Partenaire">Partenaire</option>
+  </select>
+
   <button type="submit">Ajouter contact</button>
 </form>
 <div id="mailing-status"></div>
@@ -24,11 +31,12 @@ document.getElementById('mailingForm').addEventListener('submit', async function
   const body = {
     compte: document.getElementById('compte').value,
     contact: document.getElementById('contact').value,
-    email: document.getElementById('email_contact').value
+    email: document.getElementById('email_contact').value,
+    type: document.getElementById('type_contact').value
   };
 
   try {
-    const response = await fetch('https://n8n.ubiflow.net/webhook-test/mailing_list', {
+    const response = await fetch('https://n8n.ubiflow.net/webhook-test/mailing_vip', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(body)
