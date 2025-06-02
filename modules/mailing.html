@@ -21,15 +21,21 @@
 <script>
 document.getElementById('mailingForm').addEventListener('submit', async function(e) {
   e.preventDefault();
+  console.log("Submit triggered"); // <--- AJOUT
+
   if (!confirm("Confirmez-vous l'ajout de ce contact à la liste mailing ?")) {
     return;
   }
+  
   const body = {
     compte: document.getElementById('compte').value,
     contact: document.getElementById('contact').value,
     email: document.getElementById('email_contact').value,
     type: document.getElementById('type_contact').value
   };
+  
+  console.log("Payload:", body); // <--- AJOUT
+
   try {
     const response = await fetch('https://n8n.ubiflow.net/webhook-test/mailing_list', {
       method: 'POST',
