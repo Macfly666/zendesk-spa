@@ -2,7 +2,6 @@ body {
   font-family: Arial, sans-serif;
   background-color: #f4f6f8;
   padding: 30px;
-  display: flex;
   justify-content: center;
 }
 
@@ -45,6 +44,7 @@ h2 {
 
 #app-container {
   width: 600px;
+  margin: 0 auto; /* <-- Centre horizontalement */
 }
 
 form {
