@@ -31,7 +31,7 @@ document.getElementById('mailingForm').addEventListener('submit', async function
     type: document.getElementById('type_contact').value
   };
   try {
-    const response = await fetch('https://n8n.ubiflow.net/webhook-test/mailing_vip', {
+    const response = await fetch('https://n8n.ubiflow.net/webhook-test/mailing_list', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(body)
