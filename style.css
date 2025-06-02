@@ -26,6 +26,8 @@ h2 {
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
+  white-space: nowrap; /* <-- empêche de s'étirer */
+  height: auto; /* <-- pas de hauteur fixe */
 }
 
 .tabs button:hover {
