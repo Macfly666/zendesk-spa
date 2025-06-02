@@ -15,9 +15,10 @@ h2 {
 .tabs {
   display: flex;
   justify-content: center;
-  margin-bottom: 30px;
   gap: 15px;
-  flex-wrap: wrap; /* si trop de boutons, passe à la ligne */
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  align-items: center; /* <-- ALIGNEMENT VERTICAL */
 }
 
 .tabs button {
@@ -29,15 +30,19 @@ h2 {
   cursor: pointer;
   padding: 12px 20px;
   white-space: nowrap;
-  height: auto;
+  flex: 0 0 auto;
   width: auto;
-  flex: 0 0 auto; /* <-- EMPÊCHE le bouton de s’étirer */
+  height: auto;
+  min-height: 40px; /* <-- FORCE UNE HAUTEUR MINI */
+  max-height: 50px; /* <-- LIMITE LA HAUTEUR */
+  line-height: 1; /* <-- Évite que le texte s'étire */
   text-align: center;
 }
 
 .tabs button:hover {
   background-color: #1d4450;
 }
+
 #app-container {
   width: 600px;
 }
