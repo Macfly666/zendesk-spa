@@ -15,25 +15,28 @@ h2 {
   display: flex;
   justify-content: center;
   margin-bottom: 30px;
-  gap: 20px;
+  gap: 15px;
+  flex-wrap: wrap; /* si trop de boutons, passe à la ligne */
 }
 
 .tabs button {
-  padding: 12px 20px;
   background-color: #255662;
   color: white;
   border: none;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
-  white-space: nowrap; /* <-- empêche de s'étirer */
-  height: auto; /* <-- pas de hauteur fixe */
+  padding: 12px 20px;
+  white-space: nowrap;
+  height: auto;
+  width: auto;
+  flex: 0 0 auto; /* <-- EMPÊCHE le bouton de s’étirer */
+  text-align: center;
 }
 
 .tabs button:hover {
   background-color: #1d4450;
 }
-
 #app-container {
   width: 600px;
 }
