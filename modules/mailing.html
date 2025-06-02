@@ -1,10 +1,13 @@
 <form id="mailingForm">
   <label>Compte *</label>
   <input type="text" id="compte" required />
+  
   <label>Contact *</label>
   <input type="text" id="contact" required />
+  
   <label>Email *</label>
   <input type="email" id="email_contact" required />
+  
   <button type="submit">Ajouter contact</button>
 </form>
 <div id="mailing-status"></div>
@@ -17,17 +20,20 @@ document.getElementById('mailingForm').addEventListener('submit', async function
   }
   const status = document.getElementById('mailing-status');
   status.textContent = "Ajout du contact en cours...";
+
   const body = {
     compte: document.getElementById('compte').value,
     contact: document.getElementById('contact').value,
     email: document.getElementById('email_contact').value
   };
+
   try {
-    const response = await fetch('https://n8n.ubiflow.net/webhook-test/ceb8177d-80b5-4db3-b8d5-877c9b97d112', {
+    const response = await fetch('https://n8n.ubiflow.net/webhook-test/mailing_vip', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(body)
     });
+
     if (response.ok) {
       status.textContent = "✅ Contact ajouté avec succès !";
       e.target.reset();
