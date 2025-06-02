@@ -1,10 +1,40 @@
 <form id="updateForm">
   <label>ID de l’organisation à mettre à jour *</label>
   <input type="text" id="org_id" required />
+
   <label>Nom</label>
   <input type="text" id="up_name" />
+
   <label>Domaine</label>
   <input type="text" id="up_domain" />
+
+  <label>Email</label>
+  <input type="email" id="up_email" />
+
+  <label>Téléphone</label>
+  <input type="text" id="up_telephone" />
+
+  <label>Code Société</label>
+  <input type="text" id="up_code_societe" />
+
+  <label>Univers</label>
+  <select id="up_univers">
+    <option value="">-- Choisir --</option>
+    <option value="immobilier">Immobilier</option>
+    <option value="automobile">Automobile</option>
+    <option value="nautisme">Nautisme</option>
+    <option value="retail">Retail</option>
+  </select>
+
+  <label>Fiche technique</label>
+  <input type="url" id="up_fiche_technique" />
+
+  <label>Fiche Sugar</label>
+  <input type="url" id="up_fiche_sugar" />
+
+  <label>Adresse</label>
+  <textarea id="up_adresse" rows="3"></textarea>
+
   <button type="submit">Mettre à jour</button>
 </form>
 <div id="update-status"></div>
@@ -14,17 +44,29 @@ document.getElementById('updateForm').addEventListener('submit', async function(
   e.preventDefault();
   const status = document.getElementById('update-status');
   status.textContent = "Mise à jour en cours...";
+
   const orgId = document.getElementById('org_id').value;
   const body = {
     name: document.getElementById('up_name').value,
-    domain_names: document.getElementById('up_domain').value ? [document.getElementById('up_domain').value] : []
+    domain_names: document.getElementById('up_domain').value ? [document.getElementById('up_domain').value] : [],
+    organization_fields: {
+      email: document.getElementById('up_email').value,
+      telephone: document.getElementById('up_telephone').value,
+      code_societe: document.getElementById('up_code_societe').value,
+      univers: document.getElementById('up_univers').value,
+      fiche_technique: document.getElementById('up_fiche_technique').value,
+      fiche_sugar: document.getElementById('up_fiche_sugar').value,
+      adresse: document.getElementById('up_adresse').value
+    }
   };
+
   try {
     const response = await fetch(`https://n8n.ubiflow.net/webhook/update-org?id=${orgId}`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(body)
     });
+
     if (response.ok) {
       status.textContent = "✅ Organisation mise à jour avec succès !";
       e.target.reset();
