@@ -10,7 +10,7 @@ async function loadModule(moduleName) {
     const content = await response.text();
     container.innerHTML = content;
 
-    initModuleJS(moduleName); // Init JS listeners
+    initModuleJS(moduleName); // Re-attach form listeners
 
   } catch (error) {
     container.innerHTML = `<p style="color:red;">Erreur : ${error.message}</p>`;
@@ -147,11 +147,16 @@ function initModuleJS(moduleName) {
           return;
         }
 
+        // Collect all selected options
+        const selectedOptions = Array.from(document.getElementById('audience').selectedOptions).map(option => option.value);
+
         const body = {
           sujet: document.getElementById('subject').value,
           contenu: document.getElementById('content').value,
-          audience: document.getElementById('audience').value
+          audience: selectedOptions
         };
+
+        console.log("[DEBUG] Payload:", body);
 
         try {
           const response = await fetch('https://n8n.ubiflow.net/webhook-test/mailing_vip', {
