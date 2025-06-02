@@ -1,16 +1,16 @@
 <form id="mailingVipForm">
   <label>Sujet *</label>
   <input type="text" id="subject" required />
-  
+
   <label>Contenu *</label>
   <textarea id="content" rows="5" required></textarea>
-  
+
   <label>Envoyer à *</label>
-  <select id="audience" required>
-    <option value="">-- Choisir --</option>
+  <select id="audience" multiple required>
     <option value="Client">Client</option>
-    <option value="Partenaire">Partenaire</option>
-    <option value="Tous">Tous</option>
+    <option value="Vendeur">Vendeur</option>
+    <option value="Média">Média</option>
+    <option value="Éditeur">Éditeur</option>
   </select>
 
   <button type="submit">Envoyer mailing VIP</button>
