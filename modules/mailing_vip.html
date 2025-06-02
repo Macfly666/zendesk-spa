@@ -15,7 +15,6 @@
 
   <button type="submit">Envoyer mailing VIP</button>
 </form>
-<div id="mailing-vip-status"></div>
 
 <script>
 document.getElementById('mailingVipForm').addEventListener('submit', async function(e) {
@@ -23,30 +22,25 @@ document.getElementById('mailingVipForm').addEventListener('submit', async funct
   if (!confirm("Confirmez-vous l'envoi du mailing VIP ?")) {
     return;
   }
-  const status = document.getElementById('mailing-vip-status');
-  status.textContent = "Envoi du mailing VIP en cours...";
-
   const body = {
     sujet: document.getElementById('subject').value,
     contenu: document.getElementById('content').value,
     audience: document.getElementById('audience').value
   };
-
   try {
     const response = await fetch('https://n8n.ubiflow.net/webhook-test/mailing_vip', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(body)
     });
-
     if (response.ok) {
-      status.textContent = "✅ Mailing VIP envoyé avec succès !";
+      showToast("✅ Mailing VIP envoyé avec succès !");
       e.target.reset();
     } else {
-      status.textContent = "❌ Erreur : " + await response.text();
+      showToast("❌ Erreur : " + await response.text());
     }
   } catch (err) {
-    status.textContent = "❌ Problème de connexion.";
+    showToast("❌ Problème de connexion.");
   }
 });
 </script>
