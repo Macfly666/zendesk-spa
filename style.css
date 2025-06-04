@@ -1,15 +1,19 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f6f8;
-  padding: 30px;
+  height: 100vh;
+  margin: 0;
   display: flex;
-  justify-content: center;
+  flex-direction: column; /* ✅ Important pour que le H2 et les boutons restent au-dessus */
+  justify-content: flex-start; /* Align top */
+  align-items: center; /* Center horizontal */
 }
 
 h2 {
   color: #255662;
   text-align: center;
   margin-bottom: 20px;
+  margin-top: 30px;
 }
 
 .tabs {
@@ -18,7 +22,6 @@ h2 {
   gap: 15px;
   margin-bottom: 30px;
   flex-wrap: wrap;
-  align-items: center;
 }
 
 .tabs button {
@@ -30,7 +33,6 @@ h2 {
   cursor: pointer;
   padding: 12px 20px;
   white-space: nowrap;
-  flex: 0 0 auto;
   min-height: 40px;
   line-height: 1;
 }
@@ -41,6 +43,7 @@ h2 {
 
 #app-container {
   width: 600px;
+  margin: 0 auto; /* ✅ Centrage horizontal */
 }
 
 form {
@@ -65,13 +68,11 @@ form label {
   border-radius: 5px;
   border: 1px solid #ccc;
   font-size: 14px;
-  margin-bottom: 10px;
 }
 
 .editor {
   height: 300px;
   background: #fff;
-  margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
