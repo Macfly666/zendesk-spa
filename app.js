@@ -1,8 +1,9 @@
-let quill; // Editor global variable
+let quill; // Variable globale pour l'éditeur Quill
 
+// Fonction pour charger dynamiquement un module HTML
 async function loadModule(moduleName) {
   const container = document.getElementById('app-container');
-  container.innerHTML = '<p>Chargement...</p>'; // Loading message while fetching
+  container.innerHTML = '<p>Chargement...</p>'; // Affichage pendant le chargement
 
   try {
     const response = await fetch(`./modules/${moduleName}.html`);
@@ -12,25 +13,27 @@ async function loadModule(moduleName) {
     const content = await response.text();
     container.innerHTML = content;
 
-    initModuleJS(moduleName); // Initialise JS spécifique au module après injection
+    initModuleJS(moduleName); // Initialisation spécifique après chargement
 
   } catch (error) {
     container.innerHTML = `<p style="color:red;">Erreur : ${error.message}</p>`;
   }
 }
 
+// Initialisation des modules en fonction de leur nom
 function initModuleJS(moduleName) {
   if (moduleName === 'mailing_vip') {
     initializeQuill();
     attachMailingVipForm();
+  } else if (moduleName === 'create') {
+    attachCreateForm();
+  } else if (moduleName === 'update') {
+    attachUpdateForm();
   }
-
-  // ➔ Ajout si d'autres modules nécessitent du JS au chargement
-  // else if (moduleName === 'create') {
-  //   initCreateModule();
-  // }
+  // Module 'mailing' n'a pas de JS à initier (juste lien GSheet)
 }
 
+// Initialisation de l'éditeur Quill
 function initializeQuill() {
   quill = new Quill('#editor-container', {
     theme: 'snow',
@@ -46,6 +49,7 @@ function initializeQuill() {
   });
 }
 
+// Mailing VIP - Formulaire
 function attachMailingVipForm() {
   const form = document.getElementById('mailingVipForm');
 
@@ -55,7 +59,7 @@ function attachMailingVipForm() {
       return;
     }
 
-    // Remplir le champ caché avec le HTML de Quill
+    // Met à jour le champ hidden avec le contenu Quill
     document.getElementById('content').value = quill.root.innerHTML;
 
     const selectedOptions = Array.from(document.getElementById('audience').selectedOptions).map(option => option.value);
@@ -85,12 +89,36 @@ function attachMailingVipForm() {
   });
 }
 
-// Toast Notification
+// Créer une organisation - Formulaire
+function attachCreateForm() {
+  const form = document.getElementById('createForm');
+  if (!form) return;
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    // Ton code JS pour soumettre les données création ici
+    showToast("✅ Organisation créée avec succès !");
+  });
+}
+
+// Mettre à jour une organisation - Formulaire
+function attachUpdateForm() {
+  const form = document.getElementById('updateForm');
+  if (!form) return;
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    // Ton code JS pour soumettre les données update ici
+    showToast("✅ Organisation mise à jour avec succès !");
+  });
+}
+
+// Gestion des toasts de notification
 function showToast(message) {
   const toast = document.getElementById('toast');
   toast.textContent = message;
-  toast.className = "show"; // Show the toast
+  toast.className = "show"; // Affiche le toast
   setTimeout(() => {
-    toast.className = toast.className.replace("show", ""); // Hide after 3s
+    toast.className = toast.className.replace("show", ""); // Cache après 3s
   }, 3000);
 }
