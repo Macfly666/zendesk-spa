@@ -47,11 +47,11 @@ function initializeQuill() {
 
 function attachMailingVipForm() {
   const form = document.getElementById('mailingVipForm');
+  if (!form) return;
 
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
 
-    // ✅ SweetAlert2 confirmation
     Swal.fire({
       title: 'Confirmer l\'envoi ?',
       text: "Voulez-vous vraiment envoyer ce mailing VIP ?",
@@ -100,7 +100,36 @@ function attachCreateForm() {
 
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
-    showToast("✅ Organisation créée avec succès !");
+
+    const body = {
+      name: document.getElementById('name').value,
+      domain_names: document.getElementById('domain').value ? [document.getElementById('domain').value] : [],
+      organization_fields: {
+        email: document.getElementById('email').value,
+        telephone: document.getElementById('telephone').value,
+        code_societe: document.getElementById('code_societe').value,
+        univers: document.getElementById('univers').value,
+        fiche_technique: document.getElementById('fiche_technique').value,
+        fiche_sugar: document.getElementById('fiche_sugar').value,
+        adresse: document.getElementById('adresse').value
+      }
+    };
+
+    try {
+      const response = await fetch('https://n8n.ubiflow.net/webhook/create-org', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      if (response.ok) {
+        showToast("✅ Organisation créée avec succès !");
+        e.target.reset();
+      } else {
+        showToast("❌ Erreur : " + await response.text());
+      }
+    } catch (err) {
+      showToast("❌ Problème de connexion.");
+    }
   });
 }
 
@@ -110,7 +139,37 @@ function attachUpdateForm() {
 
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
-    showToast("✅ Organisation mise à jour avec succès !");
+
+    const orgId = document.getElementById('org_id').value;
+    const body = {
+      name: document.getElementById('up_name').value,
+      domain_names: document.getElementById('up_domain').value ? [document.getElementById('up_domain').value] : [],
+      organization_fields: {
+        email: document.getElementById('up_email').value,
+        telephone: document.getElementById('up_telephone').value,
+        code_societe: document.getElementById('up_code_societe').value,
+        univers: document.getElementById('up_univers').value,
+        fiche_technique: document.getElementById('up_fiche_technique').value,
+        fiche_sugar: document.getElementById('up_fiche_sugar').value,
+        adresse: document.getElementById('up_adresse').value
+      }
+    };
+
+    try {
+      const response = await fetch(`https://n8n.ubiflow.net/webhook/update-org?id=${orgId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      if (response.ok) {
+        showToast("✅ Organisation mise à jour avec succès !");
+        e.target.reset();
+      } else {
+        showToast("❌ Erreur : " + await response.text());
+      }
+    } catch (err) {
+      showToast("❌ Problème de connexion.");
+    }
   });
 }
 
