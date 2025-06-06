@@ -74,7 +74,7 @@ function attachMailingVipForm() {
         };
 
         try {
-          const response = await fetch('https://n8n.ubiflow.net/webhook_test/mailing_vip', {
+          const response = await fetch('https://n8n.ubiflow.net/webhook-test/mailing_vip', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)
